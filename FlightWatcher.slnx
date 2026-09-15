@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FlightWatcher.Application/FlightWatcher.Application.csproj" />
+  <Project Path="FlightWatcher.Core/FlightWatcher.Core.csproj" />
+  <Project Path="FlightWatcher.Infrastructure/FlightWatcher.Infrastructure.csproj" />
+  <Project Path="FlightWatcher/FlightWatcher.csproj" />
+</Solution>
