@@ -17,6 +17,11 @@ AnsiConsole.Write(new Text("\n\n"));
 
 while (true)
 {
+    if (!Console.IsOutputRedirected)
+    {
+        AnsiConsole.Profile.Width = Console.WindowWidth;
+        Console.SetCursorPosition(0, Console.CursorTop);
+    }
     AnsiConsole.Write(new Rule().RuleStyle("deepskyblue1"));
     AnsiConsole.WriteLine();
     AnsiConsole.Write(new Rule().RuleStyle("deepskyblue1"));
