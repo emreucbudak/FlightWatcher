@@ -1,4 +1,4 @@
-﻿namespace FlightWatcher.Core
+namespace FlightWatcher.Core.Models
 {
     public class Flights
     {
