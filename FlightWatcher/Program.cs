@@ -1,4 +1,4 @@
-﻿using Spectre.Console;
+using Spectre.Console;
 
 var figlet = new FigletText("FlightWatcher")
 {
@@ -8,4 +8,14 @@ var figlet = new FigletText("FlightWatcher")
 };
 AnsiConsole.Write(figlet);
 AnsiConsole.WriteLine();
-AnsiConsole.WriteLine("FlightWatcher tam kapsamlı bir uçuş izleme aracıdır bilgisayarınızda çalışırken  arkada sizin için takibi yapar istediğiniz lokasyonda istediğiniz fiyata düşen bilet olursa bildirimle hemen sizi uyarır.");
+var description = new Text("FlightWatcher tam kapsamlı bir uçuş izleme aracıdır bilgisayarınızda çalışırken  arkada sizin için takibi yapar istediğiniz lokasyonda istediğiniz fiyata düşen bilet olursa bildirimle hemen sizi uyarır.")
+    .Centered();
+
+AnsiConsole.Write(description);
+AnsiConsole.WriteLine();
+AnsiConsole.Write(new Text("\n\n\n\n"));
+
+while (true)
+{
+    await Task.Delay(1000);
+}
