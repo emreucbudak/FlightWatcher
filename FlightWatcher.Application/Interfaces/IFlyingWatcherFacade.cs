@@ -1,4 +1,4 @@
-namespace FlightWatcher.Application
+namespace FlightWatcher.Application.Interfaces
 {
     public interface IFlyingWatcherFacade
     {
