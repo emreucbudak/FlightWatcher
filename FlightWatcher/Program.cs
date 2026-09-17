@@ -13,9 +13,18 @@ var description = new Text("FlightWatcher tam kapsamlı bir uçuş izleme aracı
 
 AnsiConsole.Write(description);
 AnsiConsole.WriteLine();
-AnsiConsole.Write(new Text("\n\n\n\n"));
+AnsiConsole.Write(new Text("\n\n"));
 
 while (true)
 {
-    await Task.Delay(1000);
+    AnsiConsole.Write(new Rule().RuleStyle("deepskyblue1"));
+    AnsiConsole.WriteLine();
+    AnsiConsole.Write(new Rule().RuleStyle("deepskyblue1"));
+
+
+    AnsiConsole.Cursor.MoveUp(2);
+    var input = AnsiConsole.Prompt(
+        new TextPrompt<string>(" -> ")
+            .AllowEmpty());
+    AnsiConsole.Cursor.MoveDown(1);
 }
