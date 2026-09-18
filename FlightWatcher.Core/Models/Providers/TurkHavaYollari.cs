@@ -2,6 +2,8 @@ namespace FlightWatcher.Core.Models.Providers
 {
     public class TurkHavaYollari
     {
+        public string Url { get; set; } = "https://www.turkishairlines.com/tr-tr/";
+
         public string From { get; set; } = string.Empty;
 
         public string To { get; set; } = string.Empty;
@@ -9,5 +11,7 @@ namespace FlightWatcher.Core.Models.Providers
         public DateOnly DepartureDay { get; set; }
 
         public bool IsOneWay { get; set; }
+
+        public IList<Passenger> Passengers { get; set; } = new List<Passenger>();
     }
 }
