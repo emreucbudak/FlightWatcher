@@ -4,5 +4,9 @@ namespace FlightWatcher.Infrastructure.Commands
 {
     public class TurkHavaYollariScanCommand : IFlightScanCommand
     {
+        public Task Execute()
+        {
+            return Task.CompletedTask;
+        }
     }
 }
