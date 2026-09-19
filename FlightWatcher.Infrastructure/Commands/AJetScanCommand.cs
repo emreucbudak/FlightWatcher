@@ -12,13 +12,15 @@ namespace FlightWatcher.Infrastructure.Commands
             string to,
             DateOnly departureDay,
             bool isOneWay,
-            IList<Passenger> passengers)
+            IList<Passenger> passengers,
+            DateOnly? returnDay = null)
         {
             var provider = new AJet
             {
                 From = from,
                 To = to,
                 DepartureDay = departureDay,
+                ReturnDay = returnDay,
                 IsOneWay = isOneWay,
                 Passengers = passengers
             };
@@ -31,6 +33,7 @@ namespace FlightWatcher.Infrastructure.Commands
 
             await using var browserContext = await browser.NewContextAsync();
             var page = await browserContext.NewPageAsync();
+            await page.GotoAsync(provider.Url);
         }
     }
 }

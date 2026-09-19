@@ -10,6 +10,8 @@ namespace FlightWatcher.Core.Models.Providers
 
         public DateOnly DepartureDay { get; set; }
 
+        public DateOnly? ReturnDay { get; set; }
+
         public bool IsOneWay { get; set; }
 
         public IList<Passenger> Passengers { get; set; } = new List<Passenger>();

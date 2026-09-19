@@ -9,6 +9,7 @@ namespace FlightWatcher.Application.Interfaces
             string to,
             DateOnly departureDay,
             bool isOneWay,
-            IList<Passenger> passengers);
+            IList<Passenger> passengers,
+            DateOnly? returnDay = null);
     }
 }

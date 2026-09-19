@@ -7,6 +7,8 @@ namespace FlightWatcher.Core.Models
         public int TargetPrice {  get; set; }
         public DateOnly LandedDay { get; set; }
 
+        public DateOnly? ReturnDay { get; set; }
+
         public IList<Passenger> Passengers { get; set; } = new List<Passenger>();
 
     }
