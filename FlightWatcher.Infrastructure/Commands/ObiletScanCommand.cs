@@ -1,4 +1,5 @@
 using System.Globalization;
+using FlightWatcher.Application.Contexts;
 using FlightWatcher.Application.Interfaces;
 using FlightWatcher.Core.Models;
 using FlightWatcher.Core.Models.Providers;
@@ -66,7 +67,41 @@ namespace FlightWatcher.Infrastructure.Commands
                 link += $"{departureDate}-{returnDate.ToString("yyyyMMdd", CultureInfo.InvariantCulture)}";
             }
 
-            link += "/" + string.Join("-", provider.GetPassengerParameters());
+            link += "/" + string.Join("-", provider.GetPassengerParameters()) + "/economy/all";
+
+            await page.GotoAsync(link);
+
+            var journeys = page.Locator("ul#outbound-journeys > li > div.journey.row");
+            await journeys.First.Locator(":scope > div.price.col > div.amount.notranslate:not(.close-price) > div.amount-integer").WaitForAsync();
+            var culture = CultureInfo.GetCultureInfo("tr-TR");
+
+            foreach (var journey in await journeys.AllAsync())
+            {
+                var flights = journey.Locator(":scope > ul.flights.col > li.flight");
+                var airline = await flights.First.Locator(".airline .name").InnerTextAsync();
+                var departure = await flights.First.Locator(".departure").InnerTextAsync();
+                var arrival = await flights.Last.Locator(".arrival").InnerTextAsync();
+                var originAirport = flights.First.Locator(".flight-origin");
+                var destinationAirport = flights.Last.Locator(".flight-arrival");
+                var price = await journey.Locator(":scope > div.price.col > div.amount.notranslate:not(.close-price) > div.amount-integer").InnerTextAsync();
+
+                var ticketPrice = int.Parse(price.Trim(), NumberStyles.AllowThousands, culture);
+
+                if (ticketPrice <= FlightWatcherContext.TargetTicket.TargetPrice)
+                {
+                    FlightWatcherContext.Flights.Add(new Flights
+                    {
+                        Airline = airline.Trim(),
+                        DepartureAirport = (await originAirport.GetAttributeAsync("title"))?.Trim() ?? string.Empty,
+                        DepartureAirportCode = (await originAirport.Locator(".airport").InnerTextAsync()).Trim(),
+                        ArrivalAirport = (await destinationAirport.GetAttributeAsync("title"))?.Trim() ?? string.Empty,
+                        ArrivalAirportCode = (await destinationAirport.Locator(".airport").InnerTextAsync()).Trim(),
+                        DepartureTime = TimeOnly.Parse(departure.Trim(), culture),
+                        ArrivedTime = TimeOnly.Parse(arrival.Trim(), culture),
+                        TicketPrice = ticketPrice
+                    });
+                }
+            }
         }
     }
 }
