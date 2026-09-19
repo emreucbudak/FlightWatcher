@@ -6,6 +6,8 @@ namespace FlightWatcher.Application.Contexts
     {
         public static IList<Flights> Flights { get; } = new List<Flights>();
 
+        public static TargetTicket TargetTicket { get; set; } = new TargetTicket();
+
         public static DateOnly LandedDay { get; set; }
     }
 }
